@@ -1,0 +1,52 @@
+{% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todoApp</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap-4/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'icofont/icofont.min.css'%}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+<nav class="navbar navbar-light  navbar-expand-lg bg-info">
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="menu" class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <h1>TODO APP</h1>
+    <div class="center">
+        <form method="POST">
+        {% csrf_token %}
+            <div class="form-group">
+                {{form|crispy}}
+                <br>
+                <input type="submit" value="Add" class="btn btn-primary form-control">
+            </div>
+        </form>
+
+        <table class="table">
+        {%for list in list%}
+                <tr>
+                    <td>{{list}}</td>
+                    <td><a href="{% url 'taskEdit' list.id %}"><span class="icofont-ui-edit"></span></a></td>
+                    <td><a href="{% url 'taskDelete' list.id%}" class="text-danger"><span class="icofont-ui-delete"></span></a></td>
+                </tr>
+        {%endfor%}
+        </table>
+    </div>
+
+</div>
+<script src="{% static 'bootstrap-4/jquery.js' %}"></script>
+<script src="{% static 'bootstrap-4/js/popper.js' %}"></script>
+<script src="{% static 'bootstrap-4/js/bootstrap.min.js' %}"></script>
+
+</body>
+</html>
